@@ -1,6 +1,8 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func LoadUrls() *gin.Engine {
 	// Create a Gin router with default middleware:
@@ -12,10 +14,15 @@ func LoadUrls() *gin.Engine {
 	// The router is a struct that contains a map of handlers.
 	// The handlers are functions that take in a context and return a response.
 	// The context is a struct that contains a lot of metadata about the request.
-	urls.GET("/", rootViews)
+	urls.GET("/", rootView)
 
 	urls.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+
+	urls.GET("/api/tasks", GetTasksView)
+
+	urls.POST("/api/tasks", CreateTaskView)
+
 	return urls
 }
